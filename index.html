@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>运维速查表 · tmux / git / fail2ban / linux / docker</title>
+  <meta name="description" content="tmux、Git、Fail2ban、Linux、Docker & Docker Compose 命令速查表：实时搜索、一键复制、深浅色主题。" />
+  <meta property="og:title" content="运维速查表 Cheatsheets" />
+  <meta property="og:description" content="tmux / git / fail2ban / linux / docker 命令速查" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="layout">
+    <!-- 侧栏导航 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">📋</div>
+        <div>
+          <div class="brand-name">运维速查表</div>
+          <div class="brand-sub">Cheatsheets for Ops</div>
+        </div>
+      </div>
+      <div class="nav-label">速查表</div>
+      <nav id="nav"></nav>
+      <div class="sidebar-foot">
+        通过 GitHub Actions 自动部署到 Cloudflare Pages<br />
+        <a href="https://github.com/Lizhen0628/checklist" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
+      </div>
+    </aside>
+
+    <!-- 主区域 -->
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menu-btn" title="打开导航">☰</button>
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input id="search" type="text" placeholder="搜索命令，例如：端口 / 分支 / 解封 / 日志 / 镜像" autocomplete="off" spellcheck="false" />
+          <span class="search-kbd">/ 聚焦</span>
+        </div>
+        <span class="search-meta" id="search-meta"></span>
+        <button class="theme-btn" id="theme-btn" title="切换主题">🌙</button>
+      </header>
+
+      <!-- 首页 Hero（仅首页显示，由 app.js 控制显隐） -->
+      <div class="hero-wrap">
+        <div class="hero" id="hero">
+          <span class="hero-badge">Ctrl+F 已过时 · 全站实时搜索</span>
+          <h1>运维命令速查表</h1>
+          <p>tmux、Git、Fail2ban、Linux、Docker &amp; Docker Compose 高频命令一网打尽。
+             支持实时搜索、一键复制、深浅色主题，手机端也能愉快使用。</p>
+          <div class="hero-stats" id="hero-stats"></div>
+        </div>
+      </div>
+
+      <main class="content" id="content">
+        <!-- 各速查表由 JS 渲染 -->
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // 首页统计数字
+    (function () {
+      const totalCmds = SHEETS.reduce((n, s) => n + s.sections.reduce((m, x) => m + x.items.length, 0), 0);
+      const el = document.getElementById('hero-stats');
+      if (el) {
+        el.innerHTML =
+          '<div class="stat"><b>' + SHEETS.length + '</b><span>张速查表</span></div>' +
+          '<div class="stat"><b>' + totalCmds + '</b><span>条命令</span></div>' +
+          '<div class="stat"><b>' + SHEETS.reduce((n, s) => n + s.sections.length, 0) + '</b><span>个分类</span></div>' +
+          '<div class="stat"><b>0 依赖</b><span>纯静态 · 秒开</span></div>';
+      }
+    })();
+  </script>
+</body>
+</html>
