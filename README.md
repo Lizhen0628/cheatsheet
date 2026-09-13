@@ -3,7 +3,7 @@
 📦 在线地址：<https://checklist.tools-online.site>
 📮 联系邮箱：<contact@tools-online.site>（Cloudflare Email Routing 转发）
 
-纯静态、零依赖的在线命令速查网站，**11 种语言** × 五张高频速查表：
+纯静态、零依赖的在线命令速查网站，**11 种语言** × 七张高频速查表：
 
 | 速查表 | 内容 |
 | --- | --- |
@@ -12,6 +12,8 @@
 | 🛡️ fail2ban | 服务管理、jail 状态、封禁解封、配置与日志排查 |
 | 🐧 linux | 文件、文本处理、进程、网络、权限、磁盘、包管理 |
 | 🐳 docker | 镜像、容器、网络卷、调试日志、**Docker Compose** 全套 |
+| ✏️ vim | 模式切换、移动编辑、寄存器宏、查找替换、分屏标签 |
+| 📐 latex | 文档结构、数学公式、表格图形、交叉引用、编译 |
 
 支持语言：简体中文 · 繁體中文 · English · 日本語 · 한국어 · Français · Deutsch · Italiano · Русский · Español · العربية（RTL）
 
@@ -24,7 +26,7 @@
 ├── assets/
 │   ├── css/style.css              # 样式（双主题 + RTL）
 │   └── js/
-│       ├── data.js                # ⭐ 速查数据（中文基准，437 条）
+│       ├── data.js                # ⭐ 速查数据（中文基准，637 条）
 │       ├── app.js                 # 渲染 / 搜索 / 复制 / 主题 / 语言切换
 │       └── i18n/
 │           ├── i18n.js            # i18n 框架（检测/持久化/RTL）

@@ -34,7 +34,11 @@ window.UI = {
     title_fail2ban: 'Fail2ban 速查表',
     title_linux: 'Linux 命令速查表',
     title_docker: 'Docker 速查表',
-    page_title: '在线速查表 · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Vim 速查表',
+    title_latex: 'LaTeX 速查表',
+    title_vim: 'Vim 速查表',
+    title_latex: 'LaTeX 速查表',
+    page_title: '在线速查表 · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: '联系邮箱',
   },
 
@@ -69,7 +73,7 @@ window.UI = {
     title_fail2ban: 'Fail2ban 速查表',
     title_linux: 'Linux 指令速查表',
     title_docker: 'Docker 速查表',
-    page_title: '線上速查表 · tmux / git / fail2ban / linux / docker',
+    page_title: '線上速查表 · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: '聯絡信箱',
   },
 
@@ -104,7 +108,9 @@ window.UI = {
     title_fail2ban: 'Fail2ban Cheatsheet',
     title_linux: 'Linux Commands Cheatsheet',
     title_docker: 'Docker Cheatsheet',
-    page_title: 'Online Cheatsheets · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Vim Cheatsheet',
+    title_latex: 'LaTeX Cheatsheet',
+    page_title: 'Online Cheatsheets · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'Contact',
   },
 
@@ -139,7 +145,9 @@ window.UI = {
     title_fail2ban: 'Fail2ban チートシート',
     title_linux: 'Linux コマンドチートシート',
     title_docker: 'Docker チートシート',
-    page_title: 'オンラインチートシート · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Vim チートシート',
+    title_latex: 'LaTeX チートシート',
+    page_title: 'オンラインチートシート · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'お問い合わせ',
   },
 
@@ -174,7 +182,9 @@ window.UI = {
     title_fail2ban: 'Fail2ban 치트시트',
     title_linux: 'Linux 명령어 치트시트',
     title_docker: 'Docker 치트시트',
-    page_title: '온라인 치트시트 · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Vim 치트시트',
+    title_latex: 'LaTeX 치트시트',
+    page_title: '온라인 치트시트 · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: '연락처',
   },
 
@@ -209,7 +219,9 @@ window.UI = {
     title_fail2ban: 'Aide-mémoire Fail2ban',
     title_linux: 'Aide-mémoire Linux',
     title_docker: 'Aide-mémoire Docker',
-    page_title: 'Aide-mémoire en ligne · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Aide-mémoire Vim',
+    title_latex: 'Aide-mémoire LaTeX',
+    page_title: 'Aide-mémoire en ligne · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'Contact',
   },
 
@@ -244,7 +256,9 @@ window.UI = {
     title_fail2ban: 'Fail2ban-Spickzettel',
     title_linux: 'Linux-Befehle-Spickzettel',
     title_docker: 'Docker-Spickzettel',
-    page_title: 'Online-Spickzettel · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Vim-Spickzettel',
+    title_latex: 'LaTeX-Spickzettel',
+    page_title: 'Online-Spickzettel · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'Kontakt',
   },
 
@@ -279,7 +293,9 @@ window.UI = {
     title_fail2ban: 'Cheat sheet Fail2ban',
     title_linux: 'Cheat sheet comandi Linux',
     title_docker: 'Cheat sheet Docker',
-    page_title: 'Cheat sheet online · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Cheat sheet Vim',
+    title_latex: 'Cheat sheet LaTeX',
+    page_title: 'Cheat sheet online · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'Contatti',
   },
 
@@ -314,7 +330,9 @@ window.UI = {
     title_fail2ban: 'Шпаргалка по Fail2ban',
     title_linux: 'Шпаргалка по командам Linux',
     title_docker: 'Шпаргалка по Docker',
-    page_title: 'Онлайн-шпаргалки · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Шпаргалка по Vim',
+    title_latex: 'Шпаргалка по LaTeX',
+    page_title: 'Онлайн-шпаргалки · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'Контакты',
   },
 
@@ -349,7 +367,9 @@ window.UI = {
     title_fail2ban: 'Chuleta de Fail2ban',
     title_linux: 'Chuleta de comandos Linux',
     title_docker: 'Chuleta de Docker',
-    page_title: 'Chuletas online · tmux / git / fail2ban / linux / docker',
+    title_vim: 'Chuleta de Vim',
+    title_latex: 'Chuleta de LaTeX',
+    page_title: 'Chuletas online · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'Contacto',
   },
 
@@ -384,7 +404,9 @@ window.UI = {
     title_fail2ban: 'ورقة أوامر Fail2ban',
     title_linux: 'ورقة أوامر Linux',
     title_docker: 'ورقة أوامر Docker',
-    page_title: 'أوراق أوامر عبر الإنترنت · tmux / git / fail2ban / linux / docker',
+    title_vim: 'ورقة أوامر Vim',
+    title_latex: 'ورقة أوامر LaTeX',
+    page_title: 'أوراق أوامر عبر الإنترنت · tmux / git / fail2ban / linux / docker / vim / latex',
     contact_label: 'تواصل معنا',
   },
 };
@@ -416,3 +438,11 @@ window.TIPS = {
     '数据会丢，慎用': 'Data will be lost — use with care',
   },
 };
+
+/* vim/latex 新增提示 */
+Object.assign(TIPS.en, {
+  '批量注释/列操作全靠它': 'The key to bulk commenting and column edits',
+  'vim 效率精髓：一次修改 + n 次 .': 'The essence of vim: one edit, then repeat with .',
+  '零基础第一步': 'The first step for beginners',
+  '新手从 Overleaf 开始最省心': 'Easiest way to start for beginners',
+});

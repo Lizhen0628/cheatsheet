@@ -34,20 +34,28 @@ window.I18N = (function () {
   }
 
   function fromNavigator() {
-    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-    if (/^zh(-|_$)/i.test(nav) || nav === 'zh') {
-      return /^zh-(TW|HK|MO|hant)/i.test(nav) ? 'zh-TW' : 'zh-CN';
+    // 依次检查浏览器首选语言列表，找到第一个受支持的语言
+    const list = (navigator.languages && navigator.languages.length)
+      ? navigator.languages
+      : [navigator.language || ''];
+    for (const tag of list) {
+      if (!tag) continue;
+      if (/^zh/i.test(tag)) {
+        return /(TW|HK|MO|Hant)/i.test(tag) ? 'zh-TW' : 'zh-CN';
+      }
+      const exact = SUPPORTED.find((l) => tag === l || tag.startsWith(l + '-'));
+      if (exact) return exact;
     }
-    const exact = SUPPORTED.find((l) => nav === l || nav.startsWith(l + '-'));
-    return exact || null;
+    return null;
   }
 
   let lang = fromUrl() || fromSaved() || fromNavigator() || 'en';
 
-  function apply() {
+  function apply(persist) {
     document.documentElement.lang = lang;
     document.documentElement.dir = RTL_LANGS.includes(lang) ? 'rtl' : 'ltr';
-    localStorage.setItem('lang', lang);
+    // 只有用户手动切换语言才写入 localStorage，浏览器语言始终优先于自动检测结果
+    if (persist) localStorage.setItem('lang', lang);
   }
 
   /* UI 字符串（ui.js 中定义 UI = { locale: { key: text } }） */
@@ -83,11 +91,11 @@ window.I18N = (function () {
     const url = new URL(location.href);
     url.searchParams.set('lang', l);
     history.replaceState(null, '', url);
-    apply();
+    apply(true); // 手动切换：持久化
     if (typeof window.APP_ON_LANG_CHANGE === 'function') window.APP_ON_LANG_CHANGE();
   }
 
-  apply();
+  apply(false);
 
   return {
     get lang() { return lang; },

@@ -6,7 +6,7 @@ const vm = require('vm');
 
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext('this.window = this; true;', sandbox);
+vm.runInContext('this.window = this; var TIPS = this.TIPS = {};', sandbox);
 const load = (p) => vm.runInContext(fs.readFileSync(p, 'utf8'), sandbox);
 
 load(path.join(__dirname, '../assets/js/data.js'));
