@@ -1,27 +1,86 @@
 /* ============================================================
- * 速查表应用逻辑：路由导航 / 实时搜索 / 一键复制 / 主题切换
+ * 速查表应用逻辑：i18n 渲染 / 路由导航 / 实时搜索 / 一键复制 / 主题
  * ============================================================ */
 
 (function () {
   'use strict';
 
+  const CONTACT_EMAIL = 'contact@tools-online.site';
+  const GITHUB_URL = 'https://github.com/Lizhen0628/checklist';
+
   const state = {
     sheet: location.hash.replace('#', '') || null,
-    query: '',
   };
 
   const els = {
     nav: document.getElementById('nav'),
     content: document.getElementById('content'),
+    heroWrap: document.getElementById('hero-wrap'),
     search: document.getElementById('search'),
     searchMeta: document.getElementById('search-meta'),
     themeBtn: document.getElementById('theme-btn'),
     menuBtn: document.getElementById('menu-btn'),
     sidebar: document.getElementById('sidebar'),
-    hero: document.getElementById('hero'),
+    langSelect: document.getElementById('lang-select'),
+    brandName: document.getElementById('brand-name'),
+    brandSub: document.getElementById('brand-sub'),
+    navLabel: document.getElementById('nav-label'),
+    sidebarFoot: document.getElementById('sidebar-foot'),
+    searchKbd: document.getElementById('search-kbd'),
   };
 
-  /* ---------- 主题 ---------- */
+  /* ============ i18n：生成本地化视图（回退链 当前语言 -> en -> zh-CN） ============ */
+
+  let VIEW = []; // 本地化后的 SHEETS 副本
+
+  function buildView() {
+    const lang = I18N.lang;
+    const packs = window.CONTENT || {};
+    const useOriginal = lang === 'zh-CN'; // 中文是原始数据，不做 en 回退
+    const cur = useOriginal ? null : packs[lang] || null;
+    const en = packs.en || null;
+
+    VIEW = SHEETS.map((sheet, si) => {
+      const cp = cur && cur[si];
+      const ep = en && en[si];
+      const sections = sheet.sections.map((sec, xi) => {
+        const cs = cp && cp.sections[xi];
+        const es = ep && ep.sections[xi];
+        const title = useOriginal ? sec.title : ((cs && cs.title) || (es && es.title) || sec.title);
+        const items = sec.items.map((it, ii) => {
+          let desc = it.desc;
+          if (!useOriginal) {
+            if (cs && cs.descs && ii < cs.descs.length && cs.descs[ii]) {
+              desc = cs.descs[ii];
+            } else if (es && es.descs && ii < es.descs.length && es.descs[ii]) {
+              desc = es.descs[ii];
+            }
+          }
+          // zh: 中文原文（描述+分类标题），任何语言下都可作为搜索兜底
+          return { cmd: it.cmd, desc, tip: it.tip || null, zh: it.desc + ' ' + sec.title };
+        });
+        return { title, items };
+      });
+      return {
+        id: sheet.id,
+        name: sheet.name,
+        icon: sheet.icon,
+        accent: sheet.accent,
+        title: I18N.t('title_' + sheet.id),
+        desc: useOriginal ? sheet.desc : ((cp && cp.desc) || (ep && ep.desc) || sheet.desc),
+        sections,
+      };
+    });
+  }
+
+  const t = (k) => I18N.t(k);
+  const tpl = (k, v) => I18N.tpl(k, v);
+  const trTip = (s) => I18N.trTip(s);
+  const totalOf = (sheet) => sheet.sections.reduce((n, s) => n + s.items.length, 0);
+  const TOTAL_CMDS = SHEETS.reduce((n, s) => n + totalOf(s), 0);
+
+  /* ============ 主题 ============ */
+
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
@@ -30,26 +89,27 @@
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     els.themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-    els.themeBtn.title = theme === 'dark' ? '切换到浅色模式' : '切换到深色模式';
+    els.themeBtn.title = t(theme === 'dark' ? 'theme_light' : 'theme_dark');
   }
 
   els.themeBtn.addEventListener('click', () => {
     applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 
-  /* ---------- 复制 ---------- */
+  /* ============ 复制 ============ */
+
   let toastTimer = null;
   function showToast(msg) {
-    let t = document.getElementById('toast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'toast';
-      document.body.appendChild(t);
+    let toast = document.getElementById('toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'toast';
+      document.body.appendChild(toast);
     }
-    t.textContent = msg;
-    t.classList.add('show');
+    toast.textContent = msg;
+    toast.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
   }
 
   async function copyText(text) {
@@ -64,21 +124,24 @@
       document.execCommand('copy');
       ta.remove();
     }
-    showToast('已复制到剪贴板');
+    showToast(t('toast_copied'));
   }
 
-  /* ---------- 渲染 ---------- */
+  /* ============ 渲染 ============ */
+
   function esc(s) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function itemCard(item) {
-    const tipBadge = item.tip ? `<span class="tip" title="${esc(item.tip)}">💡 ${esc(item.tip)}</span>` : '';
+    const tipBadge = item.tip
+      ? `<span class="tip" title="${esc(trTip(item.tip))}">💡 ${esc(trTip(item.tip))}</span>`
+      : '';
     return `
       <div class="cmd-card">
         <div class="cmd-line">
           <code class="cmd"><pre>${esc(item.cmd)}</pre></code>
-          <button class="copy-btn" type="button" title="复制命令">复制</button>
+          <button class="copy-btn" type="button">${esc(t('copy'))}</button>
         </div>
         <div class="cmd-meta">
           <span class="desc">${esc(item.desc)}</span>
@@ -90,26 +153,65 @@
   function sectionBlock(sec) {
     return `
       <section class="sec">
-        <h2>${esc(sec.title)}<span class="count">${sec.items.length}</span></h2>
+        <h2>${esc(sec.title)}<span class="count">${tpl('count_tpl', { n: sec.items.length })}</span></h2>
         <div class="grid">${sec.items.map(itemCard).join('')}</div>
       </section>`;
   }
 
   function renderNav() {
-    els.nav.innerHTML = SHEETS.map(
+    els.nav.innerHTML = VIEW.map(
       (s) => `
       <a class="nav-item${state.sheet === s.id ? ' active' : ''}" href="#${s.id}" data-sheet="${s.id}">
         <span class="nav-icon">${s.icon}</span>
         <span class="nav-text">
-          <span class="nav-name">${s.name}</span>
-          <span class="nav-sub">${s.desc}</span>
+          <span class="nav-name">${esc(s.name)}</span>
+          <span class="nav-sub">${esc(s.desc)}</span>
         </span>
       </a>`
     ).join('');
   }
 
+  function renderChrome() {
+    els.brandName.textContent = t('brand_name');
+    els.brandSub.textContent = t('brand_sub');
+    els.navLabel.textContent = t('nav_label');
+    els.search.placeholder = t('search_placeholder');
+    els.searchKbd.textContent = t('search_kbd');
+    els.menuBtn.title = t('menu_open');
+    els.themeBtn.title = t(
+      document.documentElement.getAttribute('data-theme') === 'dark' ? 'theme_light' : 'theme_dark'
+    );
+    els.sidebarFoot.innerHTML = `
+      <a href="mailto:${CONTACT_EMAIL}">✉️ ${CONTACT_EMAIL}</a><br/>
+      ${esc(t('footer_note'))}<br/>
+      <a href="${GITHUB_URL}" target="_blank" rel="noopener">${esc(t('footer_github'))}</a>`;
+    I18N.setDocumentTitle();
+  }
+
+  function renderLangSelect() {
+    els.langSelect.innerHTML = I18N.SUPPORTED.map(
+      (code) => `<option value="${code}"${code === I18N.lang ? ' selected' : ''}>${I18N.LOCALE_META[code]}</option>`
+    ).join('');
+    els.langSelect.title = t('lang_label');
+  }
+
+  function renderHero() {
+    els.heroWrap.innerHTML = `
+      <div class="hero">
+        <span class="hero-badge">${esc(t('hero_badge'))}</span>
+        <h1>${esc(t('hero_title'))}</h1>
+        <p>${esc(t('hero_desc'))}</p>
+        <div class="hero-stats">
+          <div class="stat"><b>${VIEW.length}</b><span>${esc(t('stat_sheets'))}</span></div>
+          <div class="stat"><b>${TOTAL_CMDS}</b><span>${esc(t('stat_cmds'))}</span></div>
+          <div class="stat"><b>${VIEW.reduce((n, s) => n + s.sections.length, 0)}</b><span>${esc(t('stat_secs'))}</span></div>
+          <div class="stat"><b>${esc(t('stat_dep'))}</b><span>${esc(t('stat_dep_sub'))}</span></div>
+        </div>
+      </div>`;
+  }
+
   function renderSheet(sheet) {
-    els.hero.style.display = 'none';
+    els.heroWrap.style.display = 'none';
     els.content.innerHTML = `
       <header class="sheet-head" style="--accent:${sheet.accent}">
         <h1><span class="sheet-icon">${sheet.icon}</span>${esc(sheet.title)}</h1>
@@ -120,27 +222,27 @@
       </header>
       <div id="sheet-sections">${sheet.sections.map(sectionBlock).join('')}</div>`;
 
-    // 给每个 section 加锚点
     document.querySelectorAll('#sheet-sections .sec').forEach((el, i) => {
       el.id = `sec-${sheet.id}-${i}`;
     });
   }
 
   function renderHome() {
-    els.hero.style.display = '';
-    els.content.innerHTML = SHEETS.map(
+    els.heroWrap.style.display = '';
+    renderHero();
+    els.content.innerHTML = VIEW.map(
       (s) => `
       <section class="sec home-sec">
-        <h2>${s.icon} ${esc(s.title)}<span class="count">${s.sections.reduce((n, x) => n + x.items.length, 0)} 条</span></h2>
+        <h2>${s.icon} ${esc(s.title)}<span class="count">${tpl('count_tpl', { n: totalOf(s) })}</span></h2>
         <div class="grid">${s.sections[0].items.slice(0, 4).map(itemCard).join('')}
-          <a class="more-card" href="#${s.id}" style="--accent:${s.accent}">查看全部 ${s.sections.reduce((n, x) => n + x.items.length, 0)} 条命令 →</a>
+          <a class="more-card" href="#${s.id}" style="--accent:${s.accent}">${esc(tpl('view_all_tpl', { n: totalOf(s) }))}</a>
         </div>
       </section>`
     ).join('');
   }
 
   function normalize(str) {
-    return str.toLowerCase().replace(/\s+/g, ' ').trim();
+    return String(str).toLowerCase().replace(/\s+/g, ' ').trim();
   }
 
   function renderSearch(q) {
@@ -148,20 +250,23 @@
     if (!query) {
       els.searchMeta.textContent = '';
       if (state.sheet) {
-        const s = SHEETS.find((x) => x.id === state.sheet);
+        const s = VIEW.find((x) => x.id === state.sheet);
         if (s) return renderSheet(s);
       }
       return renderHome();
     }
 
-    els.hero.style.display = 'none';
+    els.heroWrap.style.display = 'none';
     const words = query.split(' ');
     let total = 0;
-    const html = SHEETS.map((sheet) => {
+    const html = VIEW.map((sheet) => {
       const matchedSections = sheet.sections
         .map((sec) => {
           const items = sec.items.filter((it) => {
-            const hay = normalize(it.cmd + ' ' + it.desc + ' ' + sec.title + ' ' + sheet.name);
+            const hay = normalize(
+              it.cmd + ' ' + it.desc + ' ' + (it.tip ? trTip(it.tip) : '') + ' ' +
+              it.zh + ' ' + sec.title + ' ' + sheet.name
+            );
             return words.every((w) => hay.includes(w));
           });
           return items.length ? { title: `${sheet.icon} ${sheet.name} · ${sec.title}`, items } : null;
@@ -173,20 +278,19 @@
     }).join('');
 
     els.content.innerHTML =
-      `<header class="sheet-head search-head"><h1>🔍 搜索 “${esc(q)}”</h1></header>` +
-      (html || '<p class="no-result">没有匹配的命令，换个关键词试试（如 “端口”“分支”“解封”“日志”）</p>');
-    els.searchMeta.textContent = `共匹配 ${total} 条`;
+      `<header class="sheet-head search-head"><h1>🔍 ${esc(tpl('search_head_tpl', { q }))}</h1></header>` +
+      (html || `<p class="no-result">${esc(t('search_none'))}</p>`);
+    els.searchMeta.textContent = tpl('search_meta_tpl', { n: total });
   }
 
   function route() {
     const id = location.hash.replace('#', '');
-    if (id && SHEETS.some((s) => s.id === id)) {
+    if (id && VIEW.some((s) => s.id === id)) {
       state.sheet = id;
     } else if (!id) {
       state.sheet = null;
     }
-    // id 是 section 锚点时保持当前 sheet
-    if (id.startsWith('sec-')) return;
+    if (id.startsWith('sec-')) return; // section 锚点：保持当前视图
     renderNav();
     renderSearch(els.search.value);
     window.scrollTo({ top: 0 });
@@ -200,7 +304,8 @@
 
   window.addEventListener('hashchange', route);
 
-  /* ---------- 搜索框 ---------- */
+  /* ============ 搜索框 ============ */
+
   let searchTimer = null;
   els.search.addEventListener('input', () => {
     clearTimeout(searchTimer);
@@ -223,22 +328,36 @@
     }
   });
 
-  /* ---------- 复制按钮（事件委托） ---------- */
+  /* ============ 复制按钮（事件委托） ============ */
+
   els.content.addEventListener('click', (e) => {
     const btn = e.target.closest('.copy-btn');
     if (!btn) return;
     const card = btn.closest('.cmd-card');
     const code = card.querySelector('pre').textContent;
     copyText(code);
-    btn.textContent = '✓ 已复制';
+    btn.textContent = t('copied');
     btn.classList.add('copied');
     setTimeout(() => {
-      btn.textContent = '复制';
+      btn.textContent = t('copy');
       btn.classList.remove('copied');
     }, 1400);
   });
 
-  /* ---------- 移动端侧栏 ---------- */
+  /* ============ 语言切换 ============ */
+
+  els.langSelect.addEventListener('change', () => I18N.setLang(els.langSelect.value));
+
+  window.APP_ON_LANG_CHANGE = function () {
+    buildView();
+    renderLangSelect();
+    renderChrome();
+    renderNav();
+    renderSearch(els.search.value);
+  };
+
+  /* ============ 移动端侧栏 ============ */
+
   els.menuBtn.addEventListener('click', () => {
     els.sidebar.classList.toggle('open');
     document.body.classList.toggle('sidebar-open');
@@ -247,7 +366,11 @@
     if (e.target.closest('a')) closeSidebar();
   });
 
-  /* ---------- 启动 ---------- */
+  /* ============ 启动 ============ */
+
+  buildView();
+  renderLangSelect();
+  renderChrome();
   renderNav();
   route();
 })();
