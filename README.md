@@ -1,9 +1,9 @@
-# 运维命令速查表 · Cheatsheets
+# 在线速查表 · Cheatsheets
 
 📦 在线地址：<https://checklist.tools-online.site>
 📮 联系邮箱：<contact@tools-online.site>（Cloudflare Email Routing 转发）
 
-纯静态、零依赖的运维命令速查网站，**11 种语言** × 五张高频速查表：
+纯静态、零依赖的在线命令速查网站，**11 种语言** × 五张高频速查表：
 
 | 速查表 | 内容 |
 | --- | --- |
