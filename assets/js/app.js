@@ -6,7 +6,6 @@
   'use strict';
 
   const CONTACT_EMAIL = 'contact@tools-online.site';
-  const GITHUB_URL = 'https://github.com/Lizhen0628/checklist';
 
   const state = {
     sheet: location.hash.replace('#', '') || null,
@@ -182,9 +181,7 @@
       document.documentElement.getAttribute('data-theme') === 'dark' ? 'theme_light' : 'theme_dark'
     );
     els.sidebarFoot.innerHTML = `
-      <a href="mailto:${CONTACT_EMAIL}">✉️ ${CONTACT_EMAIL}</a><br/>
-      ${esc(t('footer_note'))}<br/>
-      <a href="${GITHUB_URL}" target="_blank" rel="noopener">${esc(t('footer_github'))}</a>`;
+      <a href="mailto:${CONTACT_EMAIL}">✉️ ${CONTACT_EMAIL}</a>`;
     I18N.setDocumentTitle();
   }
 

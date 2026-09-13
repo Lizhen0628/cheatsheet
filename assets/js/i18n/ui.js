@@ -36,8 +36,6 @@ window.UI = {
     title_docker: 'Docker 速查表',
     page_title: '在线速查表 · tmux / git / fail2ban / linux / docker',
     contact_label: '联系邮箱',
-    footer_note: '通过 GitHub Actions 自动部署到 Cloudflare Pages',
-    footer_github: 'GitHub 仓库 ↗',
   },
 
   'zh-TW': {
@@ -73,8 +71,6 @@ window.UI = {
     title_docker: 'Docker 速查表',
     page_title: '線上速查表 · tmux / git / fail2ban / linux / docker',
     contact_label: '聯絡信箱',
-    footer_note: '透過 GitHub Actions 自動部署到 Cloudflare Pages',
-    footer_github: 'GitHub 儲存庫 ↗',
   },
 
   en: {
@@ -110,8 +106,6 @@ window.UI = {
     title_docker: 'Docker Cheatsheet',
     page_title: 'Online Cheatsheets · tmux / git / fail2ban / linux / docker',
     contact_label: 'Contact',
-    footer_note: 'Auto-deployed to Cloudflare Pages via GitHub Actions',
-    footer_github: 'GitHub repo ↗',
   },
 
   ja: {
@@ -147,8 +141,6 @@ window.UI = {
     title_docker: 'Docker チートシート',
     page_title: 'オンラインチートシート · tmux / git / fail2ban / linux / docker',
     contact_label: 'お問い合わせ',
-    footer_note: 'GitHub Actions から Cloudflare Pages へ自動デプロイ',
-    footer_github: 'GitHub リポジトリ ↗',
   },
 
   ko: {
@@ -184,8 +176,6 @@ window.UI = {
     title_docker: 'Docker 치트시트',
     page_title: '온라인 치트시트 · tmux / git / fail2ban / linux / docker',
     contact_label: '연락처',
-    footer_note: 'GitHub Actions로 Cloudflare Pages에 자동 배포',
-    footer_github: 'GitHub 저장소 ↗',
   },
 
   fr: {
@@ -221,8 +211,6 @@ window.UI = {
     title_docker: 'Aide-mémoire Docker',
     page_title: 'Aide-mémoire en ligne · tmux / git / fail2ban / linux / docker',
     contact_label: 'Contact',
-    footer_note: 'Déployé automatiquement sur Cloudflare Pages via GitHub Actions',
-    footer_github: 'Dépôt GitHub ↗',
   },
 
   de: {
@@ -258,8 +246,6 @@ window.UI = {
     title_docker: 'Docker-Spickzettel',
     page_title: 'Online-Spickzettel · tmux / git / fail2ban / linux / docker',
     contact_label: 'Kontakt',
-    footer_note: 'Automatisch via GitHub Actions auf Cloudflare Pages deployt',
-    footer_github: 'GitHub-Repository ↗',
   },
 
   it: {
@@ -295,8 +281,6 @@ window.UI = {
     title_docker: 'Cheat sheet Docker',
     page_title: 'Cheat sheet online · tmux / git / fail2ban / linux / docker',
     contact_label: 'Contatti',
-    footer_note: 'Distribuito automaticamente su Cloudflare Pages con GitHub Actions',
-    footer_github: 'Repository GitHub ↗',
   },
 
   ru: {
@@ -332,8 +316,6 @@ window.UI = {
     title_docker: 'Шпаргалка по Docker',
     page_title: 'Онлайн-шпаргалки · tmux / git / fail2ban / linux / docker',
     contact_label: 'Контакты',
-    footer_note: 'Автоматический деплой на Cloudflare Pages через GitHub Actions',
-    footer_github: 'Репозиторий GitHub ↗',
   },
 
   es: {
@@ -369,8 +351,6 @@ window.UI = {
     title_docker: 'Chuleta de Docker',
     page_title: 'Chuletas online · tmux / git / fail2ban / linux / docker',
     contact_label: 'Contacto',
-    footer_note: 'Desplegado automáticamente en Cloudflare Pages con GitHub Actions',
-    footer_github: 'Repositorio de GitHub ↗',
   },
 
   ar: {
@@ -406,8 +386,6 @@ window.UI = {
     title_docker: 'ورقة أوامر Docker',
     page_title: 'أوراق أوامر عبر الإنترنت · tmux / git / fail2ban / linux / docker',
     contact_label: 'تواصل معنا',
-    footer_note: 'يُنشر تلقائيًا إلى Cloudflare Pages عبر GitHub Actions',
-    footer_github: 'مستودع GitHub ←',
   },
 };
 
