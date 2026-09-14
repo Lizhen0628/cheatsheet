@@ -9,7 +9,7 @@ const SHEETS = [
     id: 'tmux',
     name: 'tmux',
     title: 'tmux 速查表',
-    icon: '🖥️',
+    icon: 'tm',
     desc: '终端复用器：会话 / 窗口 / 面板管理与复制模式',
     accent: '#2fbf71',
     sections: [
@@ -97,7 +97,7 @@ const SHEETS = [
     id: 'git',
     name: 'git',
     title: 'Git 速查表',
-    icon: '🌿',
+    icon: 'git',
     desc: '版本控制：提交、分支、远程、撤销与救急操作',
     accent: '#f05033',
     sections: [
@@ -245,7 +245,7 @@ const SHEETS = [
     id: 'fail2ban',
     name: 'fail2ban',
     title: 'Fail2ban 速查表',
-    icon: '🛡️',
+    icon: 'f2b',
     desc: '暴力破解防护：服务管理、jail 配置与封禁查询',
     accent: '#e63946',
     sections: [
@@ -329,7 +329,7 @@ const SHEETS = [
     id: 'linux',
     name: 'linux',
     title: 'Linux 命令速查表',
-    icon: '🐧',
+    icon: 'sh',
     desc: '文件 / 文本 / 进程 / 网络 / 磁盘 / 权限高频命令',
     accent: '#e9b112',
     sections: [
@@ -526,7 +526,7 @@ const SHEETS = [
     id: 'docker',
     name: 'docker',
     title: 'Docker 速查表',
-    icon: '🐳',
+    icon: 'dkr',
     desc: '容器 / 镜像 / 网络 / 卷 + Docker Compose 全覆盖',
     accent: '#2496ed',
     sections: [
@@ -691,7 +691,7 @@ const SHEETS = [
     id: 'vim',
     name: 'vim',
     title: 'Vim 速查表',
-    icon: '✏️',
+    icon: 'vim',
     desc: '模式切换、移动编辑、寄存器宏、查找替换与分屏',
     accent: '#019833',
     sections: [
@@ -842,7 +842,7 @@ const SHEETS = [
     id: 'latex',
     name: 'latex',
     title: 'LaTeX 速查表',
-    icon: '📐',
+    icon: 'tex',
     desc: '文档结构、数学公式、表格图形、引用与编译',
     accent: '#00838f',
     sections: [

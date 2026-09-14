@@ -7,15 +7,15 @@
   <meta name="description" content="tmux、Git、Fail2ban、Linux、Docker、Vim、LaTeX 命令速查表：11 种语言、实时搜索、一键复制、深浅色主题。 Cheatsheets in 11 languages." />
   <meta property="og:title" content="在线速查表 Cheatsheets" />
   <meta property="og:description" content="tmux / git / fail2ban / linux / docker / vim / latex · 11 languages" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%231d1b17'/><text x='50' y='68' font-family='Menlo,monospace' font-size='44' font-weight='700' fill='%23e79a3f' text-anchor='middle'>&gt;_</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css?v=2" />
 </head>
 <body>
   <div class="layout">
     <!-- 侧栏导航 -->
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="brand-logo">📋</div>
+        <div class="brand-logo">&gt;_</div>
         <div>
           <div class="brand-name" id="brand-name">在线速查表</div>
           <div class="brand-sub" id="brand-sub">Online Cheatsheets</div>
@@ -29,16 +29,22 @@
     <!-- 主区域 -->
     <div class="main">
       <header class="topbar">
-        <button class="menu-btn" id="menu-btn" title="打开导航">☰</button>
+        <button class="menu-btn" id="menu-btn" title="打开导航" aria-label="打开导航">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
         <div class="search-wrap">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          </span>
           <input id="search" type="text" placeholder="" autocomplete="off" spellcheck="false" />
           <span class="search-kbd" id="search-kbd">/ 聚焦</span>
         </div>
         <div class="topbar-right">
           <span class="search-meta" id="search-meta"></span>
           <select id="lang-select" class="lang-select" title="Language"></select>
-          <button class="theme-btn" id="theme-btn" title="切换主题">🌙</button>
+          <button class="theme-btn" id="theme-btn" title="切换主题" aria-label="切换主题">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          </button>
         </div>
       </header>
 
@@ -52,20 +58,20 @@
   </div>
 
   <!-- i18n 框架 + UI 字符串 + 各语言内容包 -->
-  <script src="assets/js/i18n/i18n.js"></script>
-  <script src="assets/js/i18n/ui.js"></script>
-  <script src="assets/js/i18n/content-en.js"></script>
-  <script src="assets/js/i18n/content-zh-TW.js"></script>
-  <script src="assets/js/i18n/content-ja.js"></script>
-  <script src="assets/js/i18n/content-ko.js"></script>
-  <script src="assets/js/i18n/content-fr.js"></script>
-  <script src="assets/js/i18n/content-de.js"></script>
-  <script src="assets/js/i18n/content-it.js"></script>
-  <script src="assets/js/i18n/content-ru.js"></script>
-  <script src="assets/js/i18n/content-es.js"></script>
-  <script src="assets/js/i18n/content-ar.js"></script>
+  <script src="assets/js/i18n/i18n.js?v=2"></script>
+  <script src="assets/js/i18n/ui.js?v=2"></script>
+  <script src="assets/js/i18n/content-en.js?v=2"></script>
+  <script src="assets/js/i18n/content-zh-TW.js?v=2"></script>
+  <script src="assets/js/i18n/content-ja.js?v=2"></script>
+  <script src="assets/js/i18n/content-ko.js?v=2"></script>
+  <script src="assets/js/i18n/content-fr.js?v=2"></script>
+  <script src="assets/js/i18n/content-de.js?v=2"></script>
+  <script src="assets/js/i18n/content-it.js?v=2"></script>
+  <script src="assets/js/i18n/content-ru.js?v=2"></script>
+  <script src="assets/js/i18n/content-es.js?v=2"></script>
+  <script src="assets/js/i18n/content-ar.js?v=2"></script>
 
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/data.js?v=2"></script>
+  <script src="assets/js/app.js?v=2"></script>
 </body>
 </html>
