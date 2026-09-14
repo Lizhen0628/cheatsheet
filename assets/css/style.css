@@ -84,7 +84,8 @@ code, pre, .copy-btn, kbd {
   top: 0;
   z-index: 30;
   height: var(--header-h);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 720px) 1fr;
   align-items: center;
   gap: 12px;
   padding: 0 22px;
@@ -95,6 +96,8 @@ code, pre, .copy-btn, kbd {
 }
 
 .menu-btn {
+  grid-column: 1;
+  justify-self: start;
   display: none;
   border: 1px solid var(--border);
   background: var(--bg-soft);
@@ -106,7 +109,15 @@ code, pre, .copy-btn, kbd {
   color: var(--text);
 }
 
-.search-wrap { flex: 1; position: relative; max-width: 720px; }
+.search-wrap { grid-column: 2; position: relative; width: 100%; min-width: 0; }
+
+.topbar-right {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
 
 .search-wrap .search-icon {
   position: absolute;
