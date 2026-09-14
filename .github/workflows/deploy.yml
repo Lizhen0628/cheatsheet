@@ -25,7 +25,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=checklist --branch=main --commit-dirty=true
+          command: pages deploy . --project-name=cheatsheet --branch=main --commit-dirty=true
 
       - name: Deployment URL
-        run: echo "✅ Deployed to https://checklist.tools-online.site"
+        run: echo "✅ Deployed to https://cheatsheet.tools-online.site"

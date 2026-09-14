@@ -1,6 +1,6 @@
 # 在线速查表 · Cheatsheets
 
-📦 在线地址：<https://checklist.tools-online.site>
+📦 在线地址：<https://cheatsheet.tools-online.site>
 📮 联系邮箱：<contact@tools-online.site>（Cloudflare Email Routing 转发）
 
 纯静态、零依赖的在线命令速查网站，**11 种语言** × 七张高频速查表：
@@ -53,19 +53,19 @@
 ## 部署架构
 
 ```
-git push → GitHub 仓库(main) → GitHub Actions → wrangler pages deploy → Cloudflare Pages → checklist.tools-online.site
+git push → GitHub 仓库(main) → GitHub Actions → wrangler pages deploy → Cloudflare Pages → cheatsheet.tools-online.site
 ```
 
 ### 配置（已完成的记录）
 
-1. Cloudflare Pages 项目 `checklist`（Direct Upload，production branch = `main`）
-2. 自定义域名 `checklist.tools-online.site`（CNAME 代理 → `checklist-b22.pages.dev`）
+1. Cloudflare Pages 项目 `cheatsheet`（Direct Upload，production branch = `main`）
+2. 自定义域名 `cheatsheet.tools-online.site`（CNAME 代理 → `cheatsheet-<hash>.pages.dev`，见 Dashboard）
 3. GitHub Secrets：`CLOUDFLARE_API_TOKEN`（Pages + DNS 最小权限）、`CLOUDFLARE_ACCOUNT_ID`
 4. `contact@tools-online.site` 经 Cloudflare Email Routing 转发到主邮箱
 
 ## 本地预览
 
 ```bash
-cd checklist && python3 -m http.server 8080
+cd cheatsheet && python3 -m http.server 8080
 # 打开 http://localhost:8080/?lang=en （或 ja / ar / ru …）
 ```
